@@ -16,6 +16,7 @@
         <module name="employee" />
         <module name="leave" />
         <module name="discovery" />
+        <module name="gateway" />
         <module name="authentication" />
       </profile>
     </annotationProcessing>
@@ -29,6 +30,7 @@
       <module name="discovery" options="" />
       <module name="discovery-service" options="" />
       <module name="employee" options="" />
+      <module name="gateway" options="" />
       <module name="leave" options="" />
     </option>
   </component>

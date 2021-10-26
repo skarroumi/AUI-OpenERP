@@ -16,5 +16,6 @@
         <module>employee</module>
         <module>authentication</module>
         <module>leave</module>
+        <module>gateway</module>
     </modules>
 </project>
