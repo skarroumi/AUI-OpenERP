@@ -12,10 +12,11 @@
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.4.2.Final/mapstruct-processor-1.4.2.Final.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.4.2.Final/mapstruct-1.4.2.Final.jar" />
         </processorPath>
-        <module name="commons-api" />
-        <module name="employee" />
+        <module name="configuration" />
         <module name="leave" />
         <module name="discovery" />
+        <module name="commons-api" />
+        <module name="employee" />
         <module name="gateway" />
         <module name="authentication" />
       </profile>
@@ -27,6 +28,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="authentication" options="" />
+      <module name="configuration" options="" />
       <module name="discovery" options="" />
       <module name="discovery-service" options="" />
       <module name="employee" options="" />
