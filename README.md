@@ -1,4 +1,4 @@
-#AUI-OpenERP
+# AUI-OpenERP
 Microservices-Based Enterprise Resource Planning Solution
 # Logical Architecture
 ## Generic Architecture
