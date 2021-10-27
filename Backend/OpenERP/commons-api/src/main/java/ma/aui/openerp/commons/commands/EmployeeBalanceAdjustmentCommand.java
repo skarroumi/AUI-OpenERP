@@ -1,8 +1,6 @@
 package ma.aui.openerp.commons.commands;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import ma.aui.openerp.commons.model.ActorDTO;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 

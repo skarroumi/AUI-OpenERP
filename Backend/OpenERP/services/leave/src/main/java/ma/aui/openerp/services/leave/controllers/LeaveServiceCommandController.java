@@ -29,7 +29,8 @@ public class LeaveServiceCommandController implements ILeaveServiceCommandContro
     @PutMapping(value = "/leaves")
     @Override
     public CompletableFuture<Void> decideOnLeave(@RequestBody LeaveDecisionDTOComposite leaveDecisionDTOComposite) {
-        return commandGateway.send(new LeaveDecisionCommand(leaveDecisionDTOComposite.getActor(),
+        return commandGateway.send(new LeaveDecisionCommand(
+                leaveDecisionDTOComposite.getActor(),
                 leaveDecisionDTOComposite.getDecision().getLeaveId(),
                 leaveDecisionDTOComposite.getDecision().getState(),
                 leaveDecisionDTOComposite.getDecision().getComment()));

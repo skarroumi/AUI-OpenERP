@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import ma.aui.openerp.commons.commands.UserAccountCreationCommand;
 import ma.aui.openerp.commons.events.EmployeeBalanceAdjustedEvent;
 import ma.aui.openerp.commons.events.EmployeeCreatedEvent;
+import ma.aui.openerp.commons.events.EmployeeEditedEvent;
 import ma.aui.openerp.commons.util.EventHelper;
 import ma.aui.openerp.commons.util.SecurityHelper;
 import ma.aui.openerp.services.employee.model.DepartmentEntity;
@@ -61,5 +62,27 @@ public class EmployeeProjector {
         EmployeeEntity employee = employeeRepository.findById(event.getEmployeeId()).get();
         employee.setLeaveBalance(employee.getLeaveBalance()- event.getLeavePeriod());
         employeeRepository.save(employee);
+    }
+
+    @EventHandler
+    public void on(EmployeeEditedEvent editedEvent){
+        EmployeeEntity editedEmployee = employeeRepository.findById(editedEvent.getEmployeeId()).get();
+        editedEmployee.setFirstName(editedEvent.getFirstName());
+        editedEmployee.setLastName(editedEvent.getLastName());
+        editedEmployee.setMarital(editedEvent.getMarital());
+        editedEmployee.setGender(editedEvent.getGender());
+        editedEmployee.setBirthDate(editedEvent.getBirthDate());
+        editedEmployee.setJoinDate(editedEvent.getJoinDate());
+        editedEmployee.setExitDate(editedEvent.getExitDate());
+        editedEmployee.setEmail(editedEvent.getEmail());
+        editedEmployee.setPhoneNumber(editedEvent.getPhoneNumber());
+        editedEmployee.setBankAccountNumber(editedEvent.getBankAccountNumber());
+        editedEmployee.setLeaveBalance(editedEvent.getLeaveBalance());
+        editedEmployee.setJobId(new JobEntity(editedEvent.getJobId().toString(),"", null));
+        editedEmployee.setDepartmentId(new DepartmentEntity(editedEvent.getDepartmentId().toString(),"", null));
+        editedEmployee.setRole(editedEvent.getRole());
+        employeeRepository.save(editedEmployee);
+
+
     }
 }

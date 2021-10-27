@@ -5,10 +5,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ma.aui.openerp.commons.commands.EmployeeBalanceAdjustmentCommand;
 import ma.aui.openerp.commons.commands.EmployeeCreationCommand;
+import ma.aui.openerp.commons.commands.EmployeeEditCommand;
 import ma.aui.openerp.commons.enums.*;
 import ma.aui.openerp.commons.events.EmployeeBalanceAdjustedEvent;
 import ma.aui.openerp.commons.events.EmployeeCreatedEvent;
+import ma.aui.openerp.commons.events.EmployeeEditedEvent;
 import ma.aui.openerp.commons.exceptions.EmployeeNotFoundException;
+import ma.aui.openerp.commons.model.EmployeeEditDTO;
 import ma.aui.openerp.commons.util.EventHelper;
 import ma.aui.openerp.commons.util.OpenERPHelper;
 import org.axonframework.commandhandling.CommandHandler;
@@ -97,4 +100,42 @@ public class EmployeeAggregate {
         this.leaveBalance = this.leaveBalance - event.getLeavePeriod();
     }
 
+    @CommandHandler
+    public void handle(EmployeeEditCommand employeeEditCommand, EventHelper eventHelper){
+        EmployeeEditedEvent editedEmployee = new EmployeeEditedEvent(
+                employeeEditCommand.getEmployeeId(),
+                employeeEditCommand.getEmployee().getFirstName(),
+                employeeEditCommand.getEmployee().getLastName(),
+                employeeEditCommand.getEmployee().getGender(),
+                employeeEditCommand.getEmployee().getMarital(),
+                employeeEditCommand.getEmployee().getBirthDate(),
+                employeeEditCommand.getEmployee().getJoinDate(),
+                employeeEditCommand.getEmployee().getExitDate(),
+                employeeEditCommand.getEmployee().getEmail(),
+                employeeEditCommand.getEmployee().getPhoneNumber(),
+                employeeEditCommand.getEmployee().getBankAccountNumber(),
+                employeeEditCommand.getEmployee().getLeaveBalance(),
+                employeeEditCommand.getEmployee().getJobId(),
+                employeeEditCommand.getEmployee().getDepartmentId(),
+                employeeEditCommand.getEmployee().getRole());
+        eventHelper.dispatchEvent(editedEmployee, employeeEditCommand.getActor());
+    }
+
+    @EventSourcingHandler
+    public void on(EmployeeEditedEvent eventEdit){
+        this.firstName = eventEdit.getFirstName();
+        this.lastName = eventEdit.getLastName();
+        this.gender = eventEdit.getGender();
+        this.marital = eventEdit.getMarital();
+        this.birthDate = eventEdit.getBirthDate();
+        this.joinDate = eventEdit.getJoinDate();
+        this.exitDate = eventEdit.getExitDate();
+        this.email = eventEdit.getEmail();
+        this.phoneNumber = eventEdit.getPhoneNumber();
+        this.bankAccountNumber = eventEdit.getBankAccountNumber();
+        this.leaveBalance = eventEdit.getLeaveBalance();
+        this.departmentId = eventEdit.getDepartmentId();
+        this.jobId = eventEdit.getJobId();
+        this.role = eventEdit.getRole();
+    }
 }
