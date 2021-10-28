@@ -8,14 +8,4 @@ public enum UserRole {
     @SerializedName("MGR")
     MANAGER;
 
-    /*public static UserRole fromString(String value){
-        UserRole userRole = null;
-        if (value.equalsIgnoreCase("SU"))
-            userRole = UserRole.SIMPLE_USER;
-
-        if (value.equalsIgnoreCase("MGR"))
-            userRole = UserRole.MANAGER;
-
-        return userRole;
-    }*/
 }

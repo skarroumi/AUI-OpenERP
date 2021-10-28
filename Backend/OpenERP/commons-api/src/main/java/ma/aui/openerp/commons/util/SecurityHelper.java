@@ -1,7 +1,6 @@
 package ma.aui.openerp.commons.util;
 
 import org.springframework.stereotype.Component;
-
 import java.security.MessageDigest;
 
 @Component

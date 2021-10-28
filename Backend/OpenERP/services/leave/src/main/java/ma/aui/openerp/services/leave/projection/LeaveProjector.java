@@ -14,7 +14,6 @@ import ma.aui.openerp.services.leave.model.LeaveEntity;
 import ma.aui.openerp.services.leave.repository.LeaveRepository;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.EventHandler;
-import org.axonframework.messaging.Message;
 import org.axonframework.messaging.MetaData;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;

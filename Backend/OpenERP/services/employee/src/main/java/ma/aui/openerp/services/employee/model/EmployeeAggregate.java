@@ -10,14 +10,11 @@ import ma.aui.openerp.commons.enums.*;
 import ma.aui.openerp.commons.events.EmployeeBalanceAdjustedEvent;
 import ma.aui.openerp.commons.events.EmployeeCreatedEvent;
 import ma.aui.openerp.commons.events.EmployeeEditedEvent;
-import ma.aui.openerp.commons.exceptions.EmployeeNotFoundException;
-import ma.aui.openerp.commons.model.EmployeeEditDTO;
 import ma.aui.openerp.commons.util.EventHelper;
 import ma.aui.openerp.commons.util.OpenERPHelper;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
-import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
 
 import java.util.UUID;

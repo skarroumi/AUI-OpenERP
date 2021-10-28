@@ -2,7 +2,6 @@ package ma.aui.openerp.services.employee.mappers;
 
 import ma.aui.openerp.commons.enums.Department;
 import ma.aui.openerp.commons.enums.Job;
-import ma.aui.openerp.commons.enums.UserRole;
 import ma.aui.openerp.commons.model.EmployeeDTO;
 import ma.aui.openerp.services.employee.model.EmployeeEntity;
 import org.springframework.stereotype.Component;

@@ -1,8 +1,6 @@
 package ma.aui.openerp.services.leave.model.converters;
 
 import ma.aui.openerp.commons.enums.LeaveState;
-import ma.aui.openerp.commons.enums.Marital;
-
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 

@@ -1,6 +1,5 @@
 package ma.aui.openerp.commons.model;
 
-
 import lombok.*;
 
 @Getter

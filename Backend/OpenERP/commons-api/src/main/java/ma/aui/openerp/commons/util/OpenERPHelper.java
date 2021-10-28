@@ -1,6 +1,5 @@
 package ma.aui.openerp.commons.util;
 
-
 import jodd.datetime.JDateTime;
 import org.springframework.stereotype.Component;
 import java.io.PrintWriter;

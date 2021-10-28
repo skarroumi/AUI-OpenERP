@@ -13,7 +13,6 @@ import ma.aui.openerp.services.employee.model.EmployeeEntity;
 import ma.aui.openerp.services.employee.repository.EmployeeRepository;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

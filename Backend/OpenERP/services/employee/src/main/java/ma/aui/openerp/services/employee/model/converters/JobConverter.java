@@ -1,9 +1,6 @@
 package ma.aui.openerp.services.employee.model.converters;
 
-import com.google.gson.annotations.SerializedName;
-import ma.aui.openerp.commons.enums.Gender;
 import ma.aui.openerp.commons.enums.Job;
-
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 

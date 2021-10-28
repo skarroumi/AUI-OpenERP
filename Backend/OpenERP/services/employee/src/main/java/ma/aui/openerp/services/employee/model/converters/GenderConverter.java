@@ -1,7 +1,6 @@
 package ma.aui.openerp.services.employee.model.converters;
 
 import ma.aui.openerp.commons.enums.Gender;
-
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 

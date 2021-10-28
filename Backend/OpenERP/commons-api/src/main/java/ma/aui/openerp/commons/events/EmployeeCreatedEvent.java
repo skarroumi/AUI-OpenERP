@@ -3,11 +3,6 @@ package ma.aui.openerp.commons.events;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import ma.aui.openerp.commons.enums.*;
-import ma.aui.openerp.commons.model.ActorDTO;
-import ma.aui.openerp.commons.model.EmployeeDTO;
-import ma.aui.openerp.commons.model.NewEmployeeDTO;
-
-import java.util.Date;
 
 @Getter
 @RequiredArgsConstructor

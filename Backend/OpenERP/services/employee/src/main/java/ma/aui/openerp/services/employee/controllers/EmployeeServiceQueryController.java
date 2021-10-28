@@ -11,23 +11,15 @@ import ma.aui.openerp.commons.queries.AllEmployeesSearchQuery;
 import ma.aui.openerp.commons.queries.DepartmentManagerSearchQuery;
 import ma.aui.openerp.commons.queries.EmployeeRegistrationNumberSearchQuery;
 import ma.aui.openerp.commons.util.EventHelper;
-import org.axonframework.eventhandling.DomainEventMessage;
-import org.axonframework.eventsourcing.eventstore.DomainEventStream;
 import org.axonframework.eventsourcing.eventstore.EventStore;
-import org.axonframework.messaging.responsetypes.ResponseType;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.ws.rs.Path;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor

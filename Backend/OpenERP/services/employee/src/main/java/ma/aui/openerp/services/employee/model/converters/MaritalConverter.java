@@ -1,8 +1,6 @@
 package ma.aui.openerp.services.employee.model.converters;
 
-import ma.aui.openerp.commons.enums.Department;
 import ma.aui.openerp.commons.enums.Marital;
-
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 

@@ -8,9 +8,8 @@ import ma.aui.openerp.commons.enums.*;
 import ma.aui.openerp.services.employee.model.converters.GenderConverter;
 import ma.aui.openerp.services.employee.model.converters.MaritalConverter;
 import ma.aui.openerp.services.employee.model.converters.UserRoleConverter;
-
 import javax.persistence.*;
-import java.util.Date;
+
 
 @Entity
 @Getter

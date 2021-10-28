@@ -5,11 +5,9 @@ import ma.aui.openerp.commons.apis.IEmployeeServiceCommandController;
 import ma.aui.openerp.commons.commands.EmployeeCreationCommand;
 import ma.aui.openerp.commons.commands.EmployeeEditCommand;
 import ma.aui.openerp.commons.model.EmployeeCreationDTO;
-import ma.aui.openerp.commons.model.EmployeeEditDTO;
 import ma.aui.openerp.commons.model.EmployeeEditDTOComposite;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.concurrent.CompletableFuture;
 
 @RestController

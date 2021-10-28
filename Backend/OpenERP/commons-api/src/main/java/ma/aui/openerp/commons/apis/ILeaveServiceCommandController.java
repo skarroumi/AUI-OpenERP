@@ -1,6 +1,5 @@
 package ma.aui.openerp.commons.apis;
 
-import ma.aui.openerp.commons.model.EmployeeCreationDTO;
 import ma.aui.openerp.commons.model.LeaveCreationDTO;
 import ma.aui.openerp.commons.model.LeaveDecisionDTOComposite;
 

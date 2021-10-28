@@ -9,7 +9,6 @@ import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.axonframework.messaging.MetaData;
 import org.axonframework.modelling.command.AggregateLifecycle;
 import org.springframework.stereotype.Component;
-
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;

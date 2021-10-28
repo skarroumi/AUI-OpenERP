@@ -15,8 +15,6 @@ import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.messaging.MetaData;
 import org.springframework.stereotype.Component;
-import sun.jvm.hotspot.oops.Metadata;
-
 import javax.transaction.Transactional;
 
 @Component
