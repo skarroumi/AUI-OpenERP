@@ -23,4 +23,4 @@ Microservices-Based Enterprise Resource Planning Solution
 ---
 ![Image](https://i.imgur.com/0Ot62R4.png)
 ## Package diagram
-![Image](https://i.imgur.com/KpeqbM9.png)
+![Image](https://i.imgur.com/oewTRZP.png)
