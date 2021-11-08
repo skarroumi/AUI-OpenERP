@@ -32,7 +32,6 @@ public class LeaveAggregate {
     private String registrationNumber;
     private String firstName;
     private String lastName;
-    private int leaveBalance;
     private String startDate;
     private String endDate;
     private String reason;
@@ -78,8 +77,7 @@ public class LeaveAggregate {
                     LeaveState.IN_PROGRESS,
                     managerDTO.getRegistrationNumber(),
                     employeeDTO.getFirstName(),
-                    employeeDTO.getLastName(),
-                    employeeDTO.getLeaveBalance());
+                    employeeDTO.getLastName());
             eventHelper.dispatchEvent(event, cmd.getActor());
 
     }
@@ -90,12 +88,12 @@ public class LeaveAggregate {
         this.registrationNumber = event.getRegistrationNumber();
         this.firstName = event.getFirstName();
         this.lastName = event.getLastName();
-        this.leaveBalance = event.getLeaveBalance();
         this.startDate = event.getStartDate();
         this.endDate = event.getEndDate();
         this.reason = event.getReason();
         this.state = event.getState();
         this.managerRegistrationNumber = event.getManagerRegistrationNumber();
+
     }
 
     @CommandHandler

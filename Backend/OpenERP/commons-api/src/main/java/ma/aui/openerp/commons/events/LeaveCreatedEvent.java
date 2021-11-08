@@ -16,6 +16,5 @@ public class LeaveCreatedEvent {
     private final String managerRegistrationNumber;
     private final String firstName;
     private final String lastName;
-    private final int leaveBalance;
 
 }

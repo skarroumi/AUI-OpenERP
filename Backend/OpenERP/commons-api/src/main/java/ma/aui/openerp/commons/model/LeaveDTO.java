@@ -13,7 +13,6 @@ public class LeaveDTO {
     private String registrationNumber;
     private String firstName;
     private String lastName;
-    private int leaveBalance;
     private String startDate;
     private String endDate;
     private String reason;

@@ -12,7 +12,6 @@ public class ModelMapper {
                 entity.getRegistrationNumber(),
                 entity.getFirstName(),
                 entity.getLastName(),
-                entity.getLeaveBalance(),
                 entity.getStartDate(),
                 entity.getEndDate(),
                 entity.getReason(),

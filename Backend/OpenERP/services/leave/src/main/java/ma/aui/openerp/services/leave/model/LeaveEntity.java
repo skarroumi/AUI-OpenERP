@@ -22,8 +22,6 @@ public class LeaveEntity {
     private String firstName;
     @Column(length = 15)
     private String lastName;
-    @Column(length = 2)
-    private int leaveBalance;
     @Column(length = 10)
     private String startDate;
     @Column(length = 10)

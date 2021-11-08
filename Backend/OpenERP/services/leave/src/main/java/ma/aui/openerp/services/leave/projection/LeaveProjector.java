@@ -39,7 +39,6 @@ public class LeaveProjector {
                 event.getRegistrationNumber(),
                 event.getFirstName(),
                 event.getLastName(),
-                event.getLeaveBalance(),
                 event.getStartDate(),
                 event.getEndDate(),
                 event.getReason(),
