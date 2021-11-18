@@ -7,6 +7,7 @@ import ma.aui.openerp.commons.commands.EmployeeEditCommand;
 import ma.aui.openerp.commons.model.EmployeeCreationDTO;
 import ma.aui.openerp.commons.model.EmployeeEditDTOComposite;
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.concurrent.CompletableFuture;
 
@@ -17,6 +18,7 @@ public class EmployeeServiceCommandController implements IEmployeeServiceCommand
 
     private final CommandGateway commandGateway;
 
+    @PreAuthorize("hasAuthority('MGR')")
     @PostMapping(value = "/employees")
     @Override
     public CompletableFuture<String> addNewEmployee(@RequestBody EmployeeCreationDTO employeeCreationDTO) {
@@ -25,6 +27,7 @@ public class EmployeeServiceCommandController implements IEmployeeServiceCommand
     }
 
 
+    @PreAuthorize("hasAuthority('MGR')")
     @PutMapping(value = "/employees/edit")
     @Override
     public CompletableFuture<Void> editEmployee(@RequestBody EmployeeEditDTOComposite employeeEditDTOComposite) {

@@ -14,6 +14,7 @@ import ma.aui.openerp.commons.util.EventHelper;
 import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,24 +38,29 @@ public class EmployeeServiceQueryController implements IEmployeeServiceQueryCont
         return eventHelper.getHistoryEvents(employeeId);
     }
 
+    @PreAuthorize("hasAuthority('MGR')")
     @Override
     @GetMapping(value = "/employees/{registrationNumber}")
     public CompletableFuture<EmployeeDTO> getEmployeeByRegistrationNumber(@PathVariable String registrationNumber) throws EmployeeNotFoundException {
         return queryGateway.query(new EmployeeRegistrationNumberSearchQuery(registrationNumber), ResponseTypes.instanceOf(EmployeeDTO.class));
     }
 
+    //@PreAuthorize("hasAnyAuthority('MGR','SU')")
+    @PreAuthorize("hasAuthority('MGR')")
     @Override
     @GetMapping(value = "/employees")
     public CompletableFuture<List<EmployeeDTO>> getAllEmployees() {
         return queryGateway.query(new AllEmployeesSearchQuery(), ResponseTypes.multipleInstancesOf(EmployeeDTO.class));
     }
 
+    @PreAuthorize("hasAuthority('MGR')")
     @Override
     @GetMapping(value = "/departments/{deptId}/employees")
     public CompletableFuture<List<EmployeeDTO>> getAllEmployeesByDepartment(@PathVariable String deptId) {
         return queryGateway.query(new AllEmployeesInDepartmentSearchQuery(deptId), ResponseTypes.multipleInstancesOf(EmployeeDTO.class));
     }
 
+    @PreAuthorize("hasAuthority('MGR')")
     @Override
     @GetMapping(value = "/departments/{deptId}/manager")
     public CompletableFuture<EmployeeDTO> getDepartmentManager(@PathVariable String deptId) throws ManagerNotFoundException {

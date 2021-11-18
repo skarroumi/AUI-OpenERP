@@ -7,6 +7,7 @@ import ma.aui.openerp.commons.commands.LeaveDecisionCommand;
 import ma.aui.openerp.commons.model.LeaveCreationDTO;
 import ma.aui.openerp.commons.model.LeaveDecisionDTOComposite;
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.concurrent.CompletableFuture;
 
@@ -17,12 +18,14 @@ public class LeaveServiceCommandController implements ILeaveServiceCommandContro
 
     private final CommandGateway commandGateway;
 
+    @PreAuthorize("hasAnyAuthority('MGR','SU')")
     @PostMapping(value = "/leaves")
     @Override
     public CompletableFuture<String> addNewLeave(@RequestBody LeaveCreationDTO leaveCreationDTO) {
         return commandGateway.send(new LeaveCreationCommand(leaveCreationDTO.getActor(), leaveCreationDTO.getLeave()));
     }
 
+    @PreAuthorize("hasAuthority('MGR')")
     @PutMapping(value = "/leaves")
     @Override
     public CompletableFuture<Void> decideOnLeave(@RequestBody LeaveDecisionDTOComposite leaveDecisionDTOComposite) {
