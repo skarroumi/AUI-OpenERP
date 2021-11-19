@@ -1,5 +1,6 @@
 package ma.aui.openerp.commons.exceptions;
 
+import java.nio.file.AccessDeniedException;
 import java.util.Date;
 
 import org.axonframework.common.AxonException;
@@ -61,6 +62,16 @@ public class GlobalExceptionHandler {
   return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
  }
 
+ @ExceptionHandler(AccessDeniedException.class)
+ public ResponseEntity<?> accessDeniedExceptionHandler(Exception ex, WebRequest request) {
+  // Logging
+  System.out.println("+++ GlobalExceptionHandlerDUPLICATE : Exception Not Handled...");
+  ex.printStackTrace();
+  ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+  return new ResponseEntity<>(errorDetails, HttpStatus.UNAUTHORIZED);
+ }
+
+
  @ExceptionHandler(Exception.class)
  public ResponseEntity<?> excpetionHandler(Exception ex, WebRequest request) {
   // Logging
@@ -69,6 +80,7 @@ public class GlobalExceptionHandler {
   ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
   return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
  }
+
 
 
 }

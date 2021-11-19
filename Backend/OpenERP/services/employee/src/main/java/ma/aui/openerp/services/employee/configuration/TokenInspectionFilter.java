@@ -28,17 +28,7 @@ public class TokenInspectionFilter implements Filter {
             String authorizationHeader = ((HttpServletRequest) request).getHeader("Authorization");
             String strToken = authorizationHeader.substring(7);
 
-            /**  New changes begin */
-            // localhost:8080 is the keycloak server hosted url
-            JwkProvider provider = new UrlJwkProvider(new URL("http://localhost:8080/auth/realms/AUI-OpenERP-realm/protocol/openid-connect/certs"));
             DecodedJWT decodedJWT = JWT.decode(strToken);
-            Jwk jwk = provider.get(decodedJWT.getKeyId());
-            Algorithm algorithm = Algorithm.RSA256((RSAPublicKey) jwk.getPublicKey(), null);
-            JWTVerifier verifier = JWT.require(algorithm)
-                    .build();
-            verifier.verify(decodedJWT);
-
-            /**  New changes end */
 
             String role = decodedJWT.getClaim("user_role").toString();
 

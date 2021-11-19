@@ -7,6 +7,8 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.server.reactive.AbstractServerHttpRequest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,16 +28,15 @@ public class SecurityFilter implements WebFilter {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
 
+        Logger logger = LoggerFactory.getLogger(this.getClass());
         try {
 
             String authorizationHeader = (((AbstractServerHttpRequest) exchange.getRequest()).getHeaders()).getFirst("Authorization");
             String strToken = authorizationHeader.substring(7);
 
-            // localhost:8080 is the keycloak server hosted url
             JwkProvider provider = new UrlJwkProvider(new URL("http://localhost:8080/auth/realms/AUI-OpenERP-realm/protocol/openid-connect/certs"));
             DecodedJWT decodedJWT = JWT.decode(strToken);
             Jwk jwk = provider.get(decodedJWT.getKeyId());
-
 
             Algorithm algorithm = Algorithm.RSA256((RSAPublicKey) jwk.getPublicKey(), null);
             JWTVerifier verifier = JWT.require(algorithm)
@@ -61,7 +62,8 @@ public class SecurityFilter implements WebFilter {
                 return chain.filter(exchange).contextWrite(ReactiveSecurityContextHolder.withAuthentication(token));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Unauthenticated User");
+            //e.printStackTrace();
         }
         return chain.filter(exchange);
 
