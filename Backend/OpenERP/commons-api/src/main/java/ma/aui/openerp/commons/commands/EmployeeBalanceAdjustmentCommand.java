@@ -7,12 +7,12 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 @Getter
 public class EmployeeBalanceAdjustmentCommand {
     @TargetAggregateIdentifier
-    private final String employeeId;
+    private final String employeeUUID;
     private final ActorDTO actor;
     private final int leavePeriod;
 
-    public EmployeeBalanceAdjustmentCommand(String employeeId, ActorDTO actor, int leavePeriod) {
-        this.employeeId = employeeId;
+    public EmployeeBalanceAdjustmentCommand(String employeeUUID, ActorDTO actor, int leavePeriod) {
+        this.employeeUUID = employeeUUID;
         this.actor = actor;
         this.leavePeriod = leavePeriod;
     }

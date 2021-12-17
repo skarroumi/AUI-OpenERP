@@ -2,7 +2,7 @@ package ma.aui.openerp.services.authentication.model;
 
 import lombok.NoArgsConstructor;
 import ma.aui.openerp.commons.commands.UserAccountCreationCommand;
-import ma.aui.openerp.commons.enums.State;
+import ma.aui.openerp.commons.enums.Active;
 import ma.aui.openerp.commons.enums.UserRole;
 import ma.aui.openerp.commons.events.UserAccountCreatedEvent;
 import ma.aui.openerp.commons.util.EventHelper;
@@ -17,11 +17,11 @@ import java.util.UUID;
 @NoArgsConstructor
 public class UserAccountAggregate {
     @AggregateIdentifier
-    private String id;
+    private String accountUUID;
     private String login;
     private String password;
-    private State state;
-    private String employeeId;
+    private Active active;
+    private String employeeUUID;
     private UserRole role;
 
     @CommandHandler
@@ -30,18 +30,18 @@ public class UserAccountAggregate {
         UserAccountCreatedEvent event = new UserAccountCreatedEvent(aggregateId,
                 cmd.getLogin(),
                 cmd.getPassword(),
-                State.ENABLED,
-                cmd.getEmployeeId(),
+                Active.ENABLED,
+                cmd.getEmployeeUUID(),
                 cmd.getRole());
         eventHelper.dispatchEvent(event, cmd.getActor());
     }
     @EventSourcingHandler
     public void on(UserAccountCreatedEvent event){
-        this.id = event.getId();
+        this.accountUUID = event.getAccountUUID();
         this.login = event.getLogin();
         this.password = event.getPassword();
-        this.state = event.getState();
-        this.employeeId = event.getEmployeeId();
+        this.active = event.getActive();
+        this.employeeUUID = event.getEmployeeUUID();
         this.role = event.getRole();
     }
 }

@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 @Component
 public class OpenERPHelper {
-    public String generateRegistrationNumber(int length) {
+    public String generateIdentificationId(int length) {
         // Constants
         final String NUMBERS = "1234567890";
 

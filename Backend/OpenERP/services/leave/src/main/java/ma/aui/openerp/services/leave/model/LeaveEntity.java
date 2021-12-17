@@ -10,29 +10,39 @@ import ma.aui.openerp.services.leave.model.converters.LeaveStateConverter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "tr_leaves")
+@Table(name = "hr.leaves")
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
 public class LeaveEntity {
     @Id
-    private String id;
-    @Column(length = 5)
-    private String registrationNumber;
-    @Column(length = 15)
+    @Column(name = "leave_uuid")
+    private String leaveUUID;
+
+    @Column(name = "identification_id", length = 5)
+    private String identificationId;
+
+    @Column(name = "first_name" , length = 15)
     private String firstName;
-    @Column(length = 15)
+
+    @Column(name = "last_name" , length = 15)
     private String lastName;
-    @Column(length = 10)
-    private String startDate;
-    @Column(length = 10)
-    private String endDate;
-    @Column(length = 20)
+
+    @Column(name = "date_from" , length = 10)
+    private String dateFrom;
+
+    @Column(name = "date_to" , length = 10)
+    private String dateTo;
+
+    @Column(name = "reason", length = 20)
     private String reason;
+
     @Convert(converter = LeaveStateConverter.class)
-    @Column(length = 1)
+    @Column(name = "state", length = 1)
     private LeaveState state;
-    @Column(length = 5)
-    private String managerRegistrationNumber;
-    @Column(length = 100)
+
+    @Column(name = "manager_identification_id", length = 5)
+    private String managerIdentificationId;
+
+    @Column(name = "comment", length = 100)
     private String comment;
 }

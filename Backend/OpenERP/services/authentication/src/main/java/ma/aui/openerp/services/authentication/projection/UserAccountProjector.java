@@ -15,11 +15,11 @@ public class UserAccountProjector {
 
     @EventHandler
     public void on(UserAccountCreatedEvent event){
-        UserAccountEntity entity = new UserAccountEntity(event.getId(),
+        UserAccountEntity entity = new UserAccountEntity(event.getAccountUUID(),
                 event.getLogin(),
                 event.getPassword(),
-                event.getState(),
-                event.getEmployeeId(),
+                event.getActive(),
+                event.getEmployeeUUID(),
                 event.getRole());
         userAccountRepository.save(entity);
     }

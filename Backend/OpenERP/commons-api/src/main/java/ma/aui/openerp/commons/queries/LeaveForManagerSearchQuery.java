@@ -6,5 +6,5 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class LeaveForManagerSearchQuery {
-    private final String managerRegistrationNumber;
+    private final String managerIdentificationId;
 }

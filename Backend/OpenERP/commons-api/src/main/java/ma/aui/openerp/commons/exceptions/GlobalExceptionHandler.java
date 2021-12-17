@@ -1,11 +1,10 @@
 package ma.aui.openerp.commons.exceptions;
 
-import java.nio.file.AccessDeniedException;
 import java.util.Date;
-
-import org.axonframework.common.AxonException;
+import org.axonframework.messaging.HandlerExecutionException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
@@ -23,6 +22,12 @@ public class GlobalExceptionHandler {
  public ResponseEntity<?> employeeNotFoundExceptionHandler(EmployeeNotFoundException ex, WebRequest request) {
   ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
   return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+ }
+
+ @ExceptionHandler(AccessDeniedException.class)
+ public ResponseEntity<?> accessDeniedExceptionHandler(AccessDeniedException ex, WebRequest request) {
+  ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+  return new ResponseEntity<>(errorDetails, HttpStatus.UNAUTHORIZED);
  }
 
  @ExceptionHandler(ManagerNotFoundException.class)
@@ -55,20 +60,12 @@ public class GlobalExceptionHandler {
   return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
  }
 
- @ExceptionHandler(AxonException.class)
- public ResponseEntity<?> axonExceptionHandler(AxonException ex, WebRequest request) {
+ @ExceptionHandler(HandlerExecutionException.class)
+ public ResponseEntity<?> axonExceptionHandler(HandlerExecutionException ex, WebRequest request) {
+  System.out.println("OK1");
   ex.getCause().printStackTrace();
   ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
   return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
- }
-
- @ExceptionHandler(AccessDeniedException.class)
- public ResponseEntity<?> accessDeniedExceptionHandler(Exception ex, WebRequest request) {
-  // Logging
-  System.out.println("+++ GlobalExceptionHandlerDUPLICATE : Exception Not Handled...");
-  ex.printStackTrace();
-  ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
-  return new ResponseEntity<>(errorDetails, HttpStatus.UNAUTHORIZED);
  }
 
 
@@ -76,10 +73,12 @@ public class GlobalExceptionHandler {
  public ResponseEntity<?> excpetionHandler(Exception ex, WebRequest request) {
   // Logging
   System.out.println("+++ GlobalExceptionHandler : Exception Not Handled...");
+  System.out.println(ex.getClass());
   ex.printStackTrace();
   ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
   return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
  }
+
 
 
 

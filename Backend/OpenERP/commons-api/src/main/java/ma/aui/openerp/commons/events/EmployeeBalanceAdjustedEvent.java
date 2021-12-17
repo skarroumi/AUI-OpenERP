@@ -7,5 +7,5 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public class EmployeeBalanceAdjustedEvent {
     private final int leavePeriod;
-    private final String employeeId;
+    private final String employeeUUID;
 }

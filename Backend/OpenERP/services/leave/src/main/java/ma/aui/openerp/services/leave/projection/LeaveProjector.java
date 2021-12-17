@@ -35,15 +35,15 @@ public class LeaveProjector {
     @EventHandler
     public void on(LeaveCreatedEvent event) throws Exception{
         LeaveEntity leaveEntity = new LeaveEntity(
-                event.getId(),
-                event.getRegistrationNumber(),
+                event.getLeaveUUID(),
+                event.getIdentificationId(),
                 event.getFirstName(),
                 event.getLastName(),
-                event.getStartDate(),
-                event.getEndDate(),
+                event.getDateFrom(),
+                event.getDateTo(),
                 event.getReason(),
                 event.getState(),
-                event.getManagerRegistrationNumber(),
+                event.getManagerIdentificationId(),
                 ""
         );
         leaveRepository.save(leaveEntity);
@@ -52,20 +52,19 @@ public class LeaveProjector {
     @EventHandler
     @Transactional
     public void on(LeaveDecidedOnEvent event, MetaData metaData) throws Exception, EmployeeNotFoundException {
-        LeaveEntity leaveEntity = leaveRepository.findById(event.getLeaveId()).get();
+        LeaveEntity leaveEntity = leaveRepository.findById(event.getLeaveUUID()).get();
         leaveEntity.setState(event.getState());
         leaveEntity.setComment(event.getComment());
         leaveRepository.save(leaveEntity);
 
         if (event.getState()== LeaveState.APPROVED) {
-            String startDate2 = openERPHelper.replace(leaveEntity.getStartDate(), "^([0-9]{4})-([0-9]{2})-([0-9]{2})$", "$3/$2/$1");
-            String endDate2 = openERPHelper.replace(leaveEntity.getEndDate(), "^([0-9]{4})-([0-9]{2})-([0-9]{2})$", "$3/$2/$1");
+            String startDate2 = openERPHelper.replace(leaveEntity.getDateFrom(), "^([0-9]{4})-([0-9]{2})-([0-9]{2})$", "$3/$2/$1");
+            String endDate2 = openERPHelper.replace(leaveEntity.getDateTo(), "^([0-9]{4})-([0-9]{2})-([0-9]{2})$", "$3/$2/$1");
             int leavePeriod = openERPHelper.leavePeriod(startDate2, endDate2);
 
-            CompletableFuture<EmployeeDTO> employeeEntity = queryGateway.query(new EmployeeRegistrationNumberSearchQuery(leaveEntity.getRegistrationNumber()), ResponseTypes.instanceOf(EmployeeDTO.class));
+            CompletableFuture<EmployeeDTO> employeeEntity = queryGateway.query(new EmployeeRegistrationNumberSearchQuery(leaveEntity.getIdentificationId()), ResponseTypes.instanceOf(EmployeeDTO.class));
             EmployeeDTO employee = employeeEntity.get();
-            //System.out.println(employee.getEmployeeId() + employee.getLeaveBalance());
-            commandGateway.send(new EmployeeBalanceAdjustmentCommand(employee.getEmployeeId(), eventHelper.getActor(metaData), leavePeriod));
+            commandGateway.send(new EmployeeBalanceAdjustmentCommand(employee.getEmployeeUUID(), eventHelper.getActor(metaData), leavePeriod));
         }
     }
 

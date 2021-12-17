@@ -2,7 +2,7 @@ package ma.aui.openerp.commons.enums;
 
 import com.google.gson.annotations.SerializedName;
 
-public enum State {
+public enum Active {
     @SerializedName("1")
     ENABLED,
     @SerializedName("0")

@@ -10,7 +10,7 @@ import ma.aui.openerp.commons.model.ActorDTO;
 public class UserAccountCreationCommand{
     private final String login;
     private final String password;
-    private final String employeeId;
+    private final String employeeUUID;
     private final UserRole role;
     private final ActorDTO actor;
 }

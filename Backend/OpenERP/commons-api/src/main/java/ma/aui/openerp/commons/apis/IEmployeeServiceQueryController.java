@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public interface IEmployeeServiceQueryController {
-    List<HistoryEventDTO> getEmployeeHistoryEvents(String employeeId);
-    CompletableFuture<EmployeeDTO> getEmployeeByRegistrationNumber(String registrationNumber) throws EmployeeNotFoundException;
+    List<HistoryEventDTO> getEmployeeHistoryEvents(String employeeUUID);
+    CompletableFuture<EmployeeDTO> getEmployeeByIdentificationId(String identificationId) throws EmployeeNotFoundException;
     CompletableFuture<List<EmployeeDTO>> getAllEmployees();
-    CompletableFuture<List<EmployeeDTO>> getAllEmployeesByDepartment(String deptId);
-    CompletableFuture<EmployeeDTO> getDepartmentManager(String deptId) throws ManagerNotFoundException;
+    CompletableFuture<List<EmployeeDTO>> getAllEmployeesByDepartment(String departmentId);
+    CompletableFuture<EmployeeDTO> getDepartmentManager(String departmentId) throws ManagerNotFoundException;
 }

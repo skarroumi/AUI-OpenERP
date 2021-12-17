@@ -9,12 +9,12 @@ import ma.aui.openerp.commons.enums.LeaveState;
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 public class LeaveDTO {
-    private String id;
-    private String registrationNumber;
+    private String leaveUUID;
+    private String identificationId;
     private String firstName;
     private String lastName;
-    private String startDate;
-    private String endDate;
+    private String dateFrom;
+    private String dateTo;
     private String reason;
     private LeaveState state;
 }

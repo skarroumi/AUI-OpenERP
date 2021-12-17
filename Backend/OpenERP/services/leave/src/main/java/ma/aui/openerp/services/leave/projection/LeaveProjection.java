@@ -23,7 +23,7 @@ public class LeaveProjection {
 
     @QueryHandler
     public List<LeaveDTO> handle(LeaveInProgressForManagerSearchQuery query){
-        List<LeaveEntity> leaveInProgress = leaveRepository.getLeaveInProgress(query.getManagerRegistrationNumber());
+        List<LeaveEntity> leaveInProgress = leaveRepository.getLeaveInProgress(query.getManagerIdentificationId());
 
         return leaveInProgress.stream().map((LeaveEntity entity) -> {
             return modelMapper.convert(entity);
@@ -32,7 +32,7 @@ public class LeaveProjection {
 
     @QueryHandler
     public List<LeaveDTO> handle(LeaveForManagerSearchQuery query){
-        List<LeaveEntity> allLeaveForManager = leaveRepository.getAllLeavesForManager(query.getManagerRegistrationNumber());
+        List<LeaveEntity> allLeaveForManager = leaveRepository.getAllLeavesForManager(query.getManagerIdentificationId());
 
         return allLeaveForManager.stream().map((LeaveEntity entity) -> {
             return modelMapper.convert(entity);
@@ -41,7 +41,7 @@ public class LeaveProjection {
 
     @QueryHandler
     public List<LeaveDTO> handle(AllLeavesForEmployeeSearchQuery query){
-        List<LeaveEntity> allEmployeeLeaves = leaveRepository.getAllLeavesForEmployee(query.getEmployeeRegistrationNumber());
+        List<LeaveEntity> allEmployeeLeaves = leaveRepository.getAllLeavesForEmployee(query.getIdentificationId());
 
         return allEmployeeLeaves.stream().map((LeaveEntity entity) -> {
             return modelMapper.convert(entity);

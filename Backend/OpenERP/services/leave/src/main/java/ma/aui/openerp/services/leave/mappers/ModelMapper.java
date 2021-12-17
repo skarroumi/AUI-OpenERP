@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 public class ModelMapper {
     public LeaveDTO convert(LeaveEntity entity){
         LeaveDTO dto = new LeaveDTO(
-                entity.getId(),
-                entity.getRegistrationNumber(),
+                entity.getLeaveUUID(),
+                entity.getIdentificationId(),
                 entity.getFirstName(),
                 entity.getLastName(),
-                entity.getStartDate(),
-                entity.getEndDate(),
+                entity.getDateFrom(),
+                entity.getDateTo(),
                 entity.getReason(),
                 entity.getState());
         return dto;

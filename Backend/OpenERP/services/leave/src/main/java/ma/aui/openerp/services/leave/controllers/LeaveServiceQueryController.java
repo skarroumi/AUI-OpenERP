@@ -38,10 +38,10 @@ public class LeaveServiceQueryController implements ILeaveServiceQueryController
         return queryGateway.query(new LeaveForManagerSearchQuery(managerId), ResponseTypes.multipleInstancesOf(LeaveDTO.class));
     }
 
-    @PreAuthorize("hasAnyAuthority('MGR','SU')")
+    @PreAuthorize("hasAuthority('MGR')")
     @Override
-    @GetMapping(value = "/employees/{employeeRegistrationNumber}/leaves")
-    public CompletableFuture<List<LeaveDTO>> getAllLeavesForEmployee(@PathVariable String employeeRegistrationNumber){
-        return queryGateway.query(new AllLeavesForEmployeeSearchQuery(employeeRegistrationNumber), ResponseTypes.multipleInstancesOf(LeaveDTO.class));
+    @GetMapping(value = "/employees/{identificationId}/leaves")
+    public CompletableFuture<List<LeaveDTO>> getAllLeavesForEmployee(@PathVariable String identificationId){
+        return queryGateway.query(new AllLeavesForEmployeeSearchQuery(identificationId), ResponseTypes.multipleInstancesOf(LeaveDTO.class));
     }
 }

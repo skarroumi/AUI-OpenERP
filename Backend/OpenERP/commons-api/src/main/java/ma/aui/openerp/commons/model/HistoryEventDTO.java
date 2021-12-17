@@ -10,7 +10,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Data
 public class HistoryEventDTO implements Serializable {
-
     private String eventId;
     private String eventCanonicalName;
     private String eventName;

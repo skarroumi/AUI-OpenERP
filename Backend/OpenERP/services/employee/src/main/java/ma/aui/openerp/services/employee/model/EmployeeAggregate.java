@@ -25,27 +25,28 @@ import java.util.UUID;
 @Setter
 public class EmployeeAggregate {
     @AggregateIdentifier
-    private String employeeId;
-    private String registrationNumber;
+    private String employeeUUID;
+    private String identificationId;
     private String firstName;
     private String lastName;
     private Gender gender;
     private Marital marital;
-    private String birthDate;
-    private String joinDate;
-    private String exitDate;
-    private String email;
-    private String phoneNumber;
+    private String birthDay;
+    private String joinDay;
+    private String exitDay;
+    private String workEmail;
+    private String mobilePhone;
     private String bankAccountNumber;
     private int leaveBalance;
     private Department departmentId;
     private Job jobId;
     private UserRole role;
+    private Country countryId;
 
     @CommandHandler
     public EmployeeAggregate(EmployeeCreationCommand cmd, EventHelper eventHelper, OpenERPHelper openERPHelper){
         String employeeId = UUID.randomUUID().toString();
-        String registrationNumber = openERPHelper.generateRegistrationNumber(5);
+        String registrationNumber = openERPHelper.generateIdentificationId(5);
         EmployeeCreatedEvent employeeCreatedEvent = new EmployeeCreatedEvent(
                 employeeId,
                 registrationNumber,
@@ -53,42 +54,44 @@ public class EmployeeAggregate {
                 cmd.getNewEmployee().getLastName(),
                 cmd.getNewEmployee().getGender(),
                 cmd.getNewEmployee().getMarital(),
-                cmd.getNewEmployee().getBirthDate(),
-                cmd.getNewEmployee().getJoinDate(),
-                cmd.getNewEmployee().getEmail(),
-                cmd.getNewEmployee().getPhoneNumber(),
+                cmd.getNewEmployee().getBirthDay(),
+                cmd.getNewEmployee().getJoinDay(),
+                cmd.getNewEmployee().getWorkEmail(),
+                cmd.getNewEmployee().getMobilePhone(),
                 cmd.getNewEmployee().getBankAccountNumber(),
                 cmd.getNewEmployee().getLeaveBalance(),
                 cmd.getNewEmployee().getJobId(),
                 cmd.getNewEmployee().getDepartmentId(),
-                cmd.getNewEmployee().getRole());
+                cmd.getNewEmployee().getRole(),
+                cmd.getNewEmployee().getCountryId());
         eventHelper.dispatchEvent(employeeCreatedEvent, cmd.getActor());
     }
 
     @EventSourcingHandler
     public void on(EmployeeCreatedEvent event){
-        this.employeeId = event.getEmployeeId();
-        this.registrationNumber = event.getRegistrationNumber();
+        this.employeeUUID = event.getEmployeeUUID();
+        this.identificationId = event.getIdentificationId();
         this.firstName = event.getFirstName();
         this.lastName = event.getLastName();
         this.gender = event.getGender();
         this.marital = event.getMarital();
-        this.birthDate = event.getBirthDate();
-        this.joinDate = event.getJoinDate();
-        this.email = event.getEmail();
-        this.phoneNumber = event.getPhoneNumber();
+        this.birthDay = event.getBirthDay();
+        this.joinDay = event.getJoinDay();
+        this.workEmail = event.getWorkEmail();
+        this.mobilePhone = event.getMobilePhone();
         this.bankAccountNumber = event.getBankAccountNumber();
         this.leaveBalance = event.getLeaveBalance();
         this.departmentId = event.getDepartmentId();
         this.jobId = event.getJobId();
         this.role = event.getRole();
+        this.countryId = event.getCountryId();
     }
 
     @CommandHandler
     public void handle(EmployeeBalanceAdjustmentCommand employeeBalanceAdjustmentCommand, EventHelper eventHelper) {
         EmployeeBalanceAdjustedEvent employeeBalanceAdjustedEvent = new EmployeeBalanceAdjustedEvent(
                 employeeBalanceAdjustmentCommand.getLeavePeriod(),
-                employeeBalanceAdjustmentCommand.getEmployeeId());
+                employeeBalanceAdjustmentCommand.getEmployeeUUID());
         eventHelper.dispatchEvent(employeeBalanceAdjustedEvent, employeeBalanceAdjustmentCommand.getActor());
     }
 
@@ -100,21 +103,22 @@ public class EmployeeAggregate {
     @CommandHandler
     public void handle(EmployeeEditCommand employeeEditCommand, EventHelper eventHelper){
         EmployeeEditedEvent editedEmployee = new EmployeeEditedEvent(
-                employeeEditCommand.getEmployeeId(),
+                employeeEditCommand.getEmployeeUUID(),
                 employeeEditCommand.getEmployee().getFirstName(),
                 employeeEditCommand.getEmployee().getLastName(),
                 employeeEditCommand.getEmployee().getGender(),
                 employeeEditCommand.getEmployee().getMarital(),
-                employeeEditCommand.getEmployee().getBirthDate(),
-                employeeEditCommand.getEmployee().getJoinDate(),
-                employeeEditCommand.getEmployee().getExitDate(),
-                employeeEditCommand.getEmployee().getEmail(),
-                employeeEditCommand.getEmployee().getPhoneNumber(),
+                employeeEditCommand.getEmployee().getBirthDay(),
+                employeeEditCommand.getEmployee().getJoinDay(),
+                employeeEditCommand.getEmployee().getExitDay(),
+                employeeEditCommand.getEmployee().getWorkEmail(),
+                employeeEditCommand.getEmployee().getMobilePhone(),
                 employeeEditCommand.getEmployee().getBankAccountNumber(),
                 employeeEditCommand.getEmployee().getLeaveBalance(),
                 employeeEditCommand.getEmployee().getJobId(),
                 employeeEditCommand.getEmployee().getDepartmentId(),
-                employeeEditCommand.getEmployee().getRole());
+                employeeEditCommand.getEmployee().getRole(),
+                employeeEditCommand.getEmployee().getCountryId());
         eventHelper.dispatchEvent(editedEmployee, employeeEditCommand.getActor());
     }
 
@@ -124,15 +128,16 @@ public class EmployeeAggregate {
         this.lastName = eventEdit.getLastName();
         this.gender = eventEdit.getGender();
         this.marital = eventEdit.getMarital();
-        this.birthDate = eventEdit.getBirthDate();
-        this.joinDate = eventEdit.getJoinDate();
-        this.exitDate = eventEdit.getExitDate();
-        this.email = eventEdit.getEmail();
-        this.phoneNumber = eventEdit.getPhoneNumber();
+        this.birthDay = eventEdit.getBirthDay();
+        this.joinDay = eventEdit.getJoinDay();
+        this.exitDay = eventEdit.getExitDay();
+        this.workEmail = eventEdit.getWorkEmail();
+        this.mobilePhone = eventEdit.getMobilePhone();
         this.bankAccountNumber = eventEdit.getBankAccountNumber();
         this.leaveBalance = eventEdit.getLeaveBalance();
         this.departmentId = eventEdit.getDepartmentId();
         this.jobId = eventEdit.getJobId();
         this.role = eventEdit.getRole();
+        this.countryId = eventEdit.getCountryId();
     }
 }

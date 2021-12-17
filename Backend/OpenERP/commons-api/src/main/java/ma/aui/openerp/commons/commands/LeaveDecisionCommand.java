@@ -9,15 +9,15 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 public class LeaveDecisionCommand {
 
     @TargetAggregateIdentifier
-    private final String leaveId;
+    private final String leaveUUID;
     private final ActorDTO actor;
-    private final LeaveState leaveState;
+    private final LeaveState state;
     private final String comment;
 
-    public LeaveDecisionCommand(ActorDTO actor, String leaveId, LeaveState leaveState, String comment){
-        this.leaveId = leaveId;
+    public LeaveDecisionCommand(ActorDTO actor, String leaveUUID, LeaveState state, String comment){
+        this.leaveUUID = leaveUUID;
         this.actor = actor;
-        this.leaveState = leaveState;
+        this.state = state;
         this.comment = comment;
     }
 

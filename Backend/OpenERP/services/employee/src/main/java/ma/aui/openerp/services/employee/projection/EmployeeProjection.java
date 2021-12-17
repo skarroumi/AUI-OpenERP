@@ -26,8 +26,8 @@ public class EmployeeProjection {
 
     @QueryHandler
     public EmployeeDTO handle(EmployeeRegistrationNumberSearchQuery query) throws EmployeeNotFoundException{
-        EmployeeEntity emp = Optional.ofNullable(employeeRepository.findByRegistrationNumber(query.getRegistrationNumber()))
-                            .orElseThrow(() -> new EmployeeNotFoundException("No employee associated with " + query.getRegistrationNumber()));
+        EmployeeEntity emp = Optional.ofNullable(employeeRepository.findByIdentificationId(query.getIdentificationId()))
+                            .orElseThrow(() -> new EmployeeNotFoundException("No employee associated with " + query.getIdentificationId()));
 
         EmployeeDTO employeeDTO = modelMapper.convert(emp);
         return employeeDTO;

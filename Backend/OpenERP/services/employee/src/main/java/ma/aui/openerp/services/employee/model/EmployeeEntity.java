@@ -16,44 +16,74 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "tr_employees")
+@Table(name = "hr.employee")
 public class EmployeeEntity {
+    //NOT
     @Id
-    @Column(length = 36)
-    private String employeeId;
-    @Column(length = 5)
-    private String registrationNumber;
-    @Column(length = 15)
+    @Column(name = "employee_UUID", length = 36)
+    private String employeeUUID;
+
+    //Length not
+    @Column(name = "identification_id", length = 5)
+    private String identificationId;
+
+    //NOT
+    @Column(name = "first_name",length = 15)
     private String firstName;
-    @Column(length = 15)
+
+    //NOT
+    @Column(name = "last_name", length = 15)
     private String lastName;
-    @Column(length = 1)
+
+    @Column(name = "gender", length = 1)
     @Convert(converter = GenderConverter.class)
     private Gender gender;
-    @Column(length = 2)
+
+    @Column(name = "marital", length = 2)
     @Convert(converter = MaritalConverter.class)
     private Marital marital;
-    @Column(length = 10)
-    private String birthDate;
-    @Column(length = 10)
-    private String joinDate;
-    @Column(length = 10)
-    private String exitDate;
-    @Column(length = 30)
-    private String email;
-    @Column(length = 15)
-    private String phoneNumber;
-    @Column(length = 24)
+
+    //type not
+    @Column(name = "birthday", length = 10)
+    private String birthDay;
+
+    //not
+    @Column(name = "joinday", length = 10)
+    private String joinDay;
+
+    //not
+    @Column(name = "exitday", length = 10)
+    private String exitDay;
+
+    @Column(name = "work_email",length = 240)
+    private String workEmail;
+
+    @Column(name = "mobile_phone", length = 32)
+    private String mobilePhone;
+
+    //should be bank_account_id
+    @Column(name = "bank_account_number", length = 64)
     private String bankAccountNumber;
+
+    //not
+    @Column(name = "leave_balance", length = 2)
     private int leaveBalance;
+
     @ManyToOne
     @JoinColumn(name = "job_id")
     private JobEntity jobId;
+
     @ManyToOne
     @JoinColumn(name = "department_id")
     private DepartmentEntity departmentId;
-    @Column(length = 5)
+
+    //not
+    @Column(name = "role", length = 5)
     @Convert(converter = UserRoleConverter.class)
     private UserRole role;
+
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private CountryEntity countryId;
 
 }

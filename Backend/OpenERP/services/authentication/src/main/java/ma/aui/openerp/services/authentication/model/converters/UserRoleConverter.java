@@ -1,8 +1,6 @@
 package ma.aui.openerp.services.authentication.model.converters;
 
-import ma.aui.openerp.commons.enums.State;
 import ma.aui.openerp.commons.enums.UserRole;
-
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public interface ILeaveServiceQueryController {
-    CompletableFuture<List<LeaveDTO>> getInProgressLeavesForManager(String managerId);
-    CompletableFuture<List<LeaveDTO>> getAllLeavesForManager(String managerId);
-    CompletableFuture<List<LeaveDTO>> getAllLeavesForEmployee(String employeeRegistrationNumber);
+    CompletableFuture<List<LeaveDTO>> getInProgressLeavesForManager(String managerUUID);
+    CompletableFuture<List<LeaveDTO>> getAllLeavesForManager(String managerUUID);
+    CompletableFuture<List<LeaveDTO>> getAllLeavesForEmployee(String identificationId);
 }

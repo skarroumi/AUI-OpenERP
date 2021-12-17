@@ -6,5 +6,5 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class AllLeavesForEmployeeSearchQuery {
-    private final String employeeRegistrationNumber;
+    private final String identificationId;
 }

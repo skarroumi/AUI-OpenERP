@@ -4,20 +4,24 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "hr.department")
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DepartmentEntity {
+@Table(name = "res.country")
+public class CountryEntity {
     @Id
-    @Column(name = "department_id", length = 10)
-    private String departmentId;
-    @Column(name = "complete_name", length = 50)
-    private String completeName;
-    @OneToMany(mappedBy = "departmentId")
+    @Column(name = "code", length = 2)
+    private String code;
+
+    @Column(name = "name", length = 30)
+    private String name;
+
+    @OneToMany(mappedBy = "countryId")
     private List<EmployeeEntity> memberIds;
 }

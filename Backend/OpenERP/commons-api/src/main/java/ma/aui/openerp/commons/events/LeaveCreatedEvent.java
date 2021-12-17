@@ -7,13 +7,13 @@ import ma.aui.openerp.commons.enums.LeaveState;
 @Getter
 @RequiredArgsConstructor
 public class LeaveCreatedEvent {
-    private final String id;
-    private final String registrationNumber;
-    private final String startDate;
-    private final String endDate;
+    private final String leaveUUID;
+    private final String identificationId;
+    private final String dateFrom;
+    private final String dateTo;
     private final String reason;
     private final LeaveState state;
-    private final String managerRegistrationNumber;
+    private final String managerIdentificationId;
     private final String firstName;
     private final String lastName;
 

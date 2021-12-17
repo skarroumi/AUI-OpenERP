@@ -11,7 +11,6 @@ import ma.aui.openerp.commons.queries.AllEmployeesSearchQuery;
 import ma.aui.openerp.commons.queries.DepartmentManagerSearchQuery;
 import ma.aui.openerp.commons.queries.EmployeeRegistrationNumberSearchQuery;
 import ma.aui.openerp.commons.util.EventHelper;
-import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,10 +26,8 @@ import java.util.concurrent.CompletableFuture;
 @RequestMapping(value = "/employees/api/v1")
 public class EmployeeServiceQueryController implements IEmployeeServiceQueryController {
 
-    private final EventStore eventStore;
     private final EventHelper eventHelper;
     private final QueryGateway queryGateway;
-
 
     @Override
     @GetMapping(value = "/employees/{employeeId}/events")
@@ -41,11 +38,10 @@ public class EmployeeServiceQueryController implements IEmployeeServiceQueryCont
     @PreAuthorize("hasAuthority('MGR')")
     @Override
     @GetMapping(value = "/employees/{registrationNumber}")
-    public CompletableFuture<EmployeeDTO> getEmployeeByRegistrationNumber(@PathVariable String registrationNumber) throws EmployeeNotFoundException {
+    public CompletableFuture<EmployeeDTO> getEmployeeByIdentificationId(@PathVariable String registrationNumber) throws EmployeeNotFoundException{
         return queryGateway.query(new EmployeeRegistrationNumberSearchQuery(registrationNumber), ResponseTypes.instanceOf(EmployeeDTO.class));
     }
 
-    //@PreAuthorize("hasAnyAuthority('MGR','SU')")
     @PreAuthorize("hasAuthority('MGR')")
     @Override
     @GetMapping(value = "/employees")
@@ -63,7 +59,9 @@ public class EmployeeServiceQueryController implements IEmployeeServiceQueryCont
     @PreAuthorize("hasAuthority('MGR')")
     @Override
     @GetMapping(value = "/departments/{deptId}/manager")
-    public CompletableFuture<EmployeeDTO> getDepartmentManager(@PathVariable String deptId) throws ManagerNotFoundException {
+    public CompletableFuture<EmployeeDTO> getDepartmentManager(@PathVariable String deptId) throws ManagerNotFoundException{
         return queryGateway.query(new DepartmentManagerSearchQuery(deptId), ResponseTypes.instanceOf(EmployeeDTO.class));
     }
 }
+
+

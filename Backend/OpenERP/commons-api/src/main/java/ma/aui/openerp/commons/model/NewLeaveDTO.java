@@ -8,8 +8,8 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 public class NewLeaveDTO {
-    private String registrationNumber;
-    private String startDate;
-    private String endDate;
+    private String identificationId;
+    private String dateFrom;
+    private String dateTo;
     private String reason;
 }

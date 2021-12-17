@@ -10,7 +10,7 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 @Getter
 public class EmployeeEditCommand {
     @TargetAggregateIdentifier
-    private final String employeeId;
+    private final String employeeUUID;
     private final ActorDTO actor;
     private final EmployeeEditDTO employee;
 }

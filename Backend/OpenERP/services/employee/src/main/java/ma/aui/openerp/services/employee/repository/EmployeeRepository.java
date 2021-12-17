@@ -9,11 +9,11 @@ import java.util.List;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<EmployeeEntity, String> {
-    EmployeeEntity findByRegistrationNumber(String number);
+    EmployeeEntity findByIdentificationId(String number);
 
-    @Query(value = "select e from EmployeeEntity e where e.departmentId.departmentId=:deptId")
-    List<EmployeeEntity> findEmployeesByDepartment(@Param("deptId") String deptId);
+    @Query(value = "select e from EmployeeEntity e where e.departmentId.departmentId=:departmentId")
+    List<EmployeeEntity> findEmployeesByDepartment(@Param("departmentId") String departmentId);
 
-    @Query(value = "select e from EmployeeEntity e where e.departmentId.departmentId=:deptId and e.role='MGR'")
-    EmployeeEntity findDepartmentManager(@Param("deptId") String deptId);
+    @Query(value = "select e from EmployeeEntity e where e.departmentId.departmentId=:departmentId and e.role='MGR'")
+    EmployeeEntity findDepartmentManager(@Param("departmentId") String departmentId);
 }

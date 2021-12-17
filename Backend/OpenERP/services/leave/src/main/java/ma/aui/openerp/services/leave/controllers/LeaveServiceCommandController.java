@@ -31,7 +31,7 @@ public class LeaveServiceCommandController implements ILeaveServiceCommandContro
     public CompletableFuture<Void> decideOnLeave(@RequestBody LeaveDecisionDTOComposite leaveDecisionDTOComposite) {
         return commandGateway.send(new LeaveDecisionCommand(
                 leaveDecisionDTOComposite.getActor(),
-                leaveDecisionDTOComposite.getDecision().getLeaveId(),
+                leaveDecisionDTOComposite.getDecision().getLeaveUUID(),
                 leaveDecisionDTOComposite.getDecision().getState(),
                 leaveDecisionDTOComposite.getDecision().getComment()));
     }

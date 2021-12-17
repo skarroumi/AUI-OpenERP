@@ -1,36 +1,34 @@
 package ma.aui.openerp.services.authentication.model.converters;
 
-import ma.aui.openerp.commons.enums.Gender;
-import ma.aui.openerp.commons.enums.State;
-
+import ma.aui.openerp.commons.enums.Active;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
 @Converter(autoApply = true)
-public class StateConverter implements AttributeConverter<State, String> {
+public class StateConverter implements AttributeConverter<Active, String> {
 
     @Override
-    public String convertToDatabaseColumn(State state) {
-        switch (state){
+    public String convertToDatabaseColumn(Active active) {
+        switch (active){
             case ENABLED:
                 return "1";
             case DISABLED:
                 return "0";
             default:
-                throw new IllegalArgumentException("State ["+state+"] not Supported!");
+                throw new IllegalArgumentException("State ["+active+"] not Supported!");
         }
 
     }
 
     @Override
-    public State convertToEntityAttribute(String s) {
+    public Active convertToEntityAttribute(String s) {
         switch (s){
             case "1":
-                return State.ENABLED;
+                return Active.ENABLED;
             case "0":
-                return State.DISABLED;
+                return Active.DISABLED;
             default:
-                throw new IllegalArgumentException("State ["+s+"] not Supported!");
+                throw new IllegalArgumentException("Active ["+s+"] not Supported!");
         }
     }
 }

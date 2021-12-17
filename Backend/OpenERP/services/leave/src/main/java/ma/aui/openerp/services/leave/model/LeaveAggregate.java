@@ -28,37 +28,37 @@ import java.util.concurrent.CompletableFuture;
 @Getter @Setter
 public class LeaveAggregate {
     @AggregateIdentifier
-    private String id;
-    private String registrationNumber;
+    private String leaveUUID;
+    private String identificationId;
     private String firstName;
     private String lastName;
-    private String startDate;
-    private String endDate;
+    private String dateFrom;
+    private String dateTo;
     private String reason;
     private LeaveState state;
-    private String managerRegistrationNumber;
+    private String managerIdentificationId;
     private String comment;
 
     @CommandHandler
     public LeaveAggregate(LeaveCreationCommand cmd, EventHelper eventHelper, OpenERPHelper openERPHelper, QueryGateway queryGateway)throws SystemException, InvalidDateException, InvalidDateIntervalException, InsufficientLeaveBalanceException, EmployeeNotFoundException, Exception {
 
 
-            if (!openERPHelper.isValidDate(cmd.getNewLeave().getStartDate()))
-                throw new InvalidDateException("Invalid Start Date Value "+ cmd.getNewLeave().getStartDate()+"!");
+            if (!openERPHelper.isValidDate(cmd.getNewLeave().getDateFrom()))
+                throw new InvalidDateException("Invalid Start Date Value "+ cmd.getNewLeave().getDateFrom()+"!");
 
-            if (!openERPHelper.isValidDate(cmd.getNewLeave().getEndDate()))
-                throw new InvalidDateException("Invalid End Date Value "+ cmd.getNewLeave().getEndDate()+"!");
+            if (!openERPHelper.isValidDate(cmd.getNewLeave().getDateTo()))
+                throw new InvalidDateException("Invalid End Date Value "+ cmd.getNewLeave().getDateTo()+"!");
 
-            if(!openERPHelper.isValidLeaveDateInterval(cmd.getNewLeave().getStartDate(), cmd.getNewLeave().getEndDate()))
+            if(!openERPHelper.isValidLeaveDateInterval(cmd.getNewLeave().getDateFrom(), cmd.getNewLeave().getDateTo()))
                 throw new InvalidDateIntervalException("Invalid Interval dates!");
 
-            String leaveId = UUID.randomUUID().toString();
+            String leaveUUID = UUID.randomUUID().toString();
 
-            CompletableFuture<EmployeeDTO> queryReply = queryGateway.query(new EmployeeRegistrationNumberSearchQuery(cmd.getNewLeave().getRegistrationNumber()), ResponseTypes.instanceOf(EmployeeDTO.class));
+            CompletableFuture<EmployeeDTO> queryReply = queryGateway.query(new EmployeeRegistrationNumberSearchQuery(cmd.getNewLeave().getIdentificationId()), ResponseTypes.instanceOf(EmployeeDTO.class));
             EmployeeDTO employeeDTO = queryReply.get();
 
-            String startDate2 = openERPHelper.replace(cmd.getNewLeave().getStartDate(),"^([0-9]{4})-([0-9]{2})-([0-9]{2})$","$3/$2/$1");
-            String endDate2 = openERPHelper.replace(cmd.getNewLeave().getEndDate(),"^([0-9]{4})-([0-9]{2})-([0-9]{2})$","$3/$2/$1");
+            String startDate2 = openERPHelper.replace(cmd.getNewLeave().getDateFrom(),"^([0-9]{4})-([0-9]{2})-([0-9]{2})$","$3/$2/$1");
+            String endDate2 = openERPHelper.replace(cmd.getNewLeave().getDateTo(),"^([0-9]{4})-([0-9]{2})-([0-9]{2})$","$3/$2/$1");
             int leavePeriod = openERPHelper.leavePeriod(startDate2, endDate2);
 
 
@@ -69,13 +69,13 @@ public class LeaveAggregate {
             EmployeeDTO managerDTO = managerQueryReply.get();
 
             LeaveCreatedEvent event = new LeaveCreatedEvent(
-                    leaveId,
-                    cmd.getNewLeave().getRegistrationNumber(),
-                    cmd.getNewLeave().getStartDate(),
-                    cmd.getNewLeave().getEndDate(),
+                    leaveUUID,
+                    cmd.getNewLeave().getIdentificationId(),
+                    cmd.getNewLeave().getDateFrom(),
+                    cmd.getNewLeave().getDateTo(),
                     cmd.getNewLeave().getReason(),
                     LeaveState.IN_PROGRESS,
-                    managerDTO.getRegistrationNumber(),
+                    managerDTO.getIdentificationId(),
                     employeeDTO.getFirstName(),
                     employeeDTO.getLastName());
             eventHelper.dispatchEvent(event, cmd.getActor());
@@ -84,23 +84,23 @@ public class LeaveAggregate {
 
     @EventSourcingHandler
     public void on(LeaveCreatedEvent event){
-        this.id = event.getId();
-        this.registrationNumber = event.getRegistrationNumber();
+        this.leaveUUID = event.getLeaveUUID();
+        this.identificationId = event.getIdentificationId();
         this.firstName = event.getFirstName();
         this.lastName = event.getLastName();
-        this.startDate = event.getStartDate();
-        this.endDate = event.getEndDate();
+        this.dateFrom = event.getDateFrom();
+        this.dateTo = event.getDateTo();
         this.reason = event.getReason();
         this.state = event.getState();
-        this.managerRegistrationNumber = event.getManagerRegistrationNumber();
+        this.managerIdentificationId = event.getManagerIdentificationId();
 
     }
 
     @CommandHandler
     public void handle(LeaveDecisionCommand leaveDecisionCommand, EventHelper eventHelper){
         LeaveDecidedOnEvent updatedEvent = new LeaveDecidedOnEvent(
-                leaveDecisionCommand.getLeaveId(),
-                leaveDecisionCommand.getLeaveState(),
+                leaveDecisionCommand.getLeaveUUID(),
+                leaveDecisionCommand.getState(),
                 leaveDecisionCommand.getComment()
         );
         eventHelper.dispatchEvent(updatedEvent, leaveDecisionCommand.getActor());

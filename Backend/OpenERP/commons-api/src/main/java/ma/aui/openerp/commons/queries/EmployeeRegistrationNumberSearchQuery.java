@@ -6,5 +6,5 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class EmployeeRegistrationNumberSearchQuery {
-    private final String registrationNumber;
+    private final String identificationId;
 }

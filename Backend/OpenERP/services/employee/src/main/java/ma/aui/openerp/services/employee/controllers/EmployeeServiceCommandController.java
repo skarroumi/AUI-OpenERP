@@ -21,21 +21,22 @@ public class EmployeeServiceCommandController implements IEmployeeServiceCommand
     @PreAuthorize("hasAuthority('MGR')")
     @PostMapping(value = "/employees")
     @Override
-    public CompletableFuture<String> addNewEmployee(@RequestBody EmployeeCreationDTO employeeCreationDTO) {
+    public CompletableFuture<String> addNewEmployee(@RequestBody EmployeeCreationDTO employeeCreationDTO){
         return commandGateway.send(new EmployeeCreationCommand(employeeCreationDTO.getActor(), employeeCreationDTO.getEmployee()));
 
     }
 
-
     @PreAuthorize("hasAuthority('MGR')")
     @PutMapping(value = "/employees/edit")
     @Override
-    public CompletableFuture<Void> editEmployee(@RequestBody EmployeeEditDTOComposite employeeEditDTOComposite) {
+    public CompletableFuture<Void> editEmployee(@RequestBody EmployeeEditDTOComposite employeeEditDTOComposite){
         System.out.println("employeeEditDTOComposite.getEmployeeEdit().getEmployeeId()");
         return commandGateway.send(new EmployeeEditCommand(
-                employeeEditDTOComposite.getEmployeeEdit().getEmployeeId(),
+                employeeEditDTOComposite.getEmployeeEdit().getEmployeeUUID(),
                 employeeEditDTOComposite.getActor(),
                 employeeEditDTOComposite.getEmployeeEdit()));
 
     }
 }
+
+

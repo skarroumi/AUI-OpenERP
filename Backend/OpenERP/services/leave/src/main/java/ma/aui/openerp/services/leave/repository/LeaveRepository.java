@@ -9,12 +9,12 @@ import java.util.List;
 
 public interface LeaveRepository extends JpaRepository<LeaveEntity, String> {
 
-    @Query(value = "select l from LeaveEntity l where l.managerRegistrationNumber=:managerId and l.state='1'")
-    List<LeaveEntity> getLeaveInProgress(@Param("managerId")String managerId);
+    @Query(value = "select l from LeaveEntity l where l.managerIdentificationId=:managerIdentificationId and l.state='1'")
+    List<LeaveEntity> getLeaveInProgress(@Param("managerIdentificationId")String managerIdentificationId);
 
-    @Query(value = "select l from LeaveEntity l where l.managerRegistrationNumber=:managerId")
-    List<LeaveEntity> getAllLeavesForManager(@Param("managerId")String managerId);
+    @Query(value = "select l from LeaveEntity l where l.managerIdentificationId=:managerIdentificationId")
+    List<LeaveEntity> getAllLeavesForManager(@Param("managerIdentificationId")String managerIdentificationId);
 
-    @Query(value = "select l from LeaveEntity l where l.registrationNumber=:employeeRegistrationNumber")
-    List<LeaveEntity> getAllLeavesForEmployee(@Param("employeeRegistrationNumber")String employeeRegistrationNumber);
+    @Query(value = "select l from LeaveEntity l where l.identificationId=:identificationId")
+    List<LeaveEntity> getAllLeavesForEmployee(@Param("identificationId")String identificationId);
 }
