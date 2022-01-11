@@ -1,5 +1,5 @@
-# AUI-OpenERP
-Microservices-Based Enterprise Resource Planning Solution
+# AtlasERP
+Microservices-based platform for Enterprise Resource Planning with a Proof-of-Concept
 # Logical Architecture
 ## Generic Architecture
 ![Image](https://i.imgur.com/juDzk18.png)
