@@ -1,9 +1,9 @@
 # AtlasERP
 Microservices-based platform for Enterprise Resource Planning with a Proof-of-Concept
 # Logical Architecture
-## Generic Architecture
+## General Architecture
 ![Image](https://i.imgur.com/juDzk18.png)
-## Concrete Architecture
+## Sample Architecture
 ![Image](https://i.imgur.com/mrrZNjH.png)
 ## Ports Setup
 ![Image](https://i.imgur.com/9DUhbwI.png)
