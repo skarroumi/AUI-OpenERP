@@ -14,7 +14,7 @@ Microservices-based platform for Enterprise Resource Planning with a Proof-of-Co
 ![Image](https://i.imgur.com/Lc9unqE.png)
 * Leave class diagram
 ---
-![Image](https://imgur.com/hIcWPrh)
+![Image](https://i.imgur.com/hIcWPrh.png)
 * Authentication class diagram
 ---
 ![Image](https://i.imgur.com/8ufv7ob.png)
