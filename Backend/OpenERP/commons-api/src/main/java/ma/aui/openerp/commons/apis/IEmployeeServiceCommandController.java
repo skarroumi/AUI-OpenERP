@@ -8,3 +8,5 @@ public interface IEmployeeServiceCommandController {
     CompletableFuture<String> addNewEmployee(EmployeeCreationDTO employeeCreationDTO);
     CompletableFuture<Void> editEmployee(EmployeeEditDTOComposite employeeEditDTOComposite);
 }
+
+/*TestComment*/
